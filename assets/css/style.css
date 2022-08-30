@@ -61,6 +61,7 @@ body {
     cursor: pointer;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     transition: transform .15s;
+    z-index:99;
 }
 
 .pop-up:hover {
