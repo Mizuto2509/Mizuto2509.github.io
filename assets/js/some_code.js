@@ -1,109 +1,105 @@
-const light_mode = true;
+import settings from '../../settings.json' assert { type: "json" };
 
-const custom_profile_theme = { // Custom Profile Theme Dark/Light mode
-    "enabled": true,
-    "border": "#3496ff",
-    "background": "#a8d0fb"
-};
-
-const loading_effect = true;
-
-if (loading_effect) {
+if (settings.loading) {
     setTimeout(function () {
-        document.getElementById('load').classList.add('baymau');
+        document.getElementById('load').classList.add('hide');
     }, 2000);
 }
 
-// click('switch_mode', function () {
-//     if (document.getElementById('theme').classList.contains('own_mode')) {
-//         document.getElementById('theme').classList.remove('own_mode');
-//         this.innerHTML = mode_normal_btn;
-//     } else {
-//         document.getElementById('theme').classList.add('own_mode');
-//         this.innerHTML = "Go back to old mode";
-//     }
-// });
-
-if (light_mode) {
-    classManager('switch_mode', 'light');
-    getId('switch_mode').innerHTML = `<i class="fas fa-moon"></i>`;
+if (settings.light_mode) {
+    if (!settings.profile_theme.enabled) {
+        classManager('switch_mode', 'light');
+        classManager('av_to_left', 'light', 'add');
+        classManager('switch_ver', 'light', 'add');
+        getId('switch_mode').innerHTML = `<i class="fas fa-sun"></i>`;
+    }
 } else {
-    getId('switch_mode').innerHTML = `<i class="fas fa-sun"></i>`;
+    if (!settings.profile_theme.enabled) {
+        getId('switch_mode').innerHTML = `<i class="fas fa-moon"></i>`;
+    }
+}
+
+if (settings.old_version) {
+    classManager('card', 'old_ver', 'add');
+    classManager('switch_ver', 'focused', 'add');
+}
+
+if (settings.avatar_decoration.enabled) {
+    classManager('_av_decoration', 'active', 'add');
+    getId('_av_decoration').setAttribute('decoration_type', settings.avatar_decoration.type);
+}
+
+if (settings.profile_theme.enabled) {
+    classManager('card', 'profile_theme');
+
+    getId('switch_mode').style.display = 'none';
+
+    getId('switch_ver').style.display = 'none';
+
+    getId('card').setAttribute('style',
+        '--primary:' + settings.profile_theme.primary
+        + ';' +
+        '--accent:' + settings.profile_theme.accent 
+        + ';'
+    )
 }
 
 click('switch_mode', function () {
     if (classManager('card', 'light-theme', 'find')) {
         classManager('card', 'light-theme', 'remove');
         classManager('switch_mode', 'light', 'remove');
-        getId('switch_mode').innerHTML = `<i class="fas fa-sun"></i>`;
+        classManager('av_to_left', 'light', 'remove');
+        classManager('switch_ver', 'light', 'remove');
+        getId('switch_mode').innerHTML = `<i class="fas fa-moon"></i>`;
     } else {
         classManager('card', 'light-theme', 'add');
         classManager('switch_mode', 'light', 'add');
-        getId('switch_mode').innerHTML = `<i class="fas fa-moon"></i>`;
+        classManager('av_to_left', 'light', 'add');
+        classManager('switch_ver', 'light', 'add');
+        getId('switch_mode').innerHTML = `<i class="fas fa-sun"></i>`;
     }
 });
 
-hover('badge_1', function () {
-    classManager('badge_tooltip_1', 'show');
-}, function () {
-    classManager('badge_tooltip_1', 'show', 'remove');
+click('switch_ver', function () {
+    if (classManager('card', 'old_ver', 'find')) {
+        classManager('card', 'old_ver', 'remove');
+        classManager('switch_ver', 'focused', 'remove');
+    } else {
+        classManager('card', 'old_ver', 'add');
+        classManager('switch_ver', 'focused', 'add');
+    }
 });
 
-hover('badge_2', function () {
-    classManager('badge_tooltip_2', 'show');
-}, function () {
-    classManager('badge_tooltip_2', 'show', 'remove');
-});
+var badges = document.getElementsByClassName("badge");
 
-hover('badge_3', function () {
-    classManager('badge_tooltip_3', 'show');
-}, function () {
-    classManager('badge_tooltip_3', 'show', 'remove');
-});
+var hover_tooltip_1 = function() {
+    this.querySelector('.badge_tooltip').classList.add('show');
+};
 
-// hover('badge_4', function () {
-//     classManager('badge_tooltip_4', 'show');
-// }, function () {
-//     classManager('badge_tooltip_4', 'show', 'remove');
-// });
+var hover_tooltip_2 = function() {
+    this.querySelector('.badge_tooltip').classList.remove('show');
+};
 
-// click('badge_1', function () {
-//     // alert("Developer Badge");
-//     // * update soon *
-// });
-
-if (light_mode) {
-    classManager('card', 'light-theme');
+for (var i = 0; i < badges.length; i++) {
+    badges[i].addEventListener('mouseenter', hover_tooltip_1, false);
 }
 
-if (custom_profile_theme.enabled) {
-    if (!light_mode) {
-        classManager('card', 'dark-theme');
-    }
+for (var i = 0; i < badges.length; i++) {
+    badges[i].addEventListener('mouseleave', hover_tooltip_2, false);
+}
 
-    getId('switch_mode').style.display = 'none';
-
-    classManager('card', 'custom');
-
-    getId('card').setAttribute('style', 
-        '--p-bg-color:' + custom_profile_theme.background
-        + ';' +
-        '--p-b-color:' + custom_profile_theme.border
-        + ';'
-    );
+if (settings.light_mode) {
+    classManager('card', 'light-theme');
 }
 
 function getId(id) {
     return document.getElementById(id);
 }
 
-function hover(id, mouseenter, mouseleave) {
-    getId(id).addEventListener('mouseenter', mouseenter);
-    getId(id).addEventListener('mouseleave', mouseleave);
-}
-
 function click(id, event) {
-    getId(id).addEventListener('click', event);
+    if (getId(id)) {
+        getId(id).addEventListener('click', event);
+    }
 }
 
 function classManager(id, classname, type = 'add') {

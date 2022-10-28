@@ -1,3 +1,5 @@
+@import url('./avatar_decoration.css');
+
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap');
 
 :root {
@@ -40,82 +42,263 @@ body {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    transition: background .1s;
 }
 
-#container #card.light-theme {
+#container #card.profile_theme {
+    background: linear-gradient(var(--primary), var(--primary) 120px, var(--accent));
+}
+
+#container #card.profile_theme:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 8px; 
+    padding: 5px; 
+    width: 300px;
+    height: 512px;
+    top: -2.5px;
+    left: 0;
+    right: 0;
+    margin-left: auto; 
+    margin-right: auto; 
+    background:linear-gradient(var(--primary), var(--accent)); 
+    -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude; 
+    z-index: 3;
+}
+
+#container #card:not(.profile_theme).light-theme {
     --profile-gradient-primary-color:hsl(210,calc(var(--saturation-factor, 1)*11.1%),92.9%);
     --profile-gradient-secondary-color:hsl(210,calc(var(--saturation-factor, 1)*11.1%),92.9%);
     background: linear-gradient(var(--profile-gradient-primary-color),var(--profile-gradient-primary-color) 120px,var(--profile-gradient-secondary-color));
 }
 
-#container #card.custom.light-theme {
-    --p-beta: #ffffff73;
+#container #card.old_ver {
+    background: hsl(225,calc(var(--saturation-factor, 1)*7.7%),10.2%);
 }
 
-#container #card.custom.dark-theme {
-    --p-beta: #00000073;
+#container #card.old_ver.light-theme {
+    background: hsl(0,calc(var(--saturation-factor, 1)*0%),100%);
 }
 
-#container #card.custom {
-    background: var(--p-bg-color);
-    border: 4px solid var(--p-b-color);
+#container #card #card_inner {
+    width: 100%;
+    height: 100%;
 }
 
-#container #card ._img {
+#container #card.profile_theme #card_inner {
+    background-color: #00000099;
+}
+
+#container #card.profile_theme.light-theme #card_inner {
+    background-color: #ffffff99;
+}
+
+/* #container #card ._img {
+    background-image: var(--src);
+    background-size: cover;
+    background-position: center;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     z-index: 1;
+    width: 100%;
+    height: 110px;
+    min-height:110px;
+    margin-top: -0.5px;
 }
 
-#container #card.custom ._img {
-    border-radius: 4px 4px 0 0;
+#container #card.profile_theme ._img {
+    height: 120px;
+    min-height: 120px;
+} */
+
+#container #card .banner {
+    z-index: 1;
+    margin-top: -0.5px;
 }
 
-#container #card ._img ~ #edit_banner {
-    position: absolute;
-    margin-left: -25px;
-    margin-top: 8px;
-    opacity: 0;
-    transition: opacity .2s;
+#container #card .banner .banner_inner {
+    height: 120px;
+    min-height: 120px;
+    background-repeat:no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 0;
+}
+
+#container #card.profile_theme .banner {
+    position: relative;
+    margin-top: 2px;
+    border-radius: 0;
+    z-index: 4;
 }
 
 #container #card #_av {
     position: relative;
-    width: 100px;
-    height: 100px;
+    left: 0;
+    width: 80px;
+    height: 80px;
     margin-left: auto;
     margin-right:auto;
-    background-image: url('https://cdn.discordapp.com/avatars/973245695433793566/a_0f1c9130440ae1f395def98b99a192a3.gif');
+    left: -91px;
+    top: 5px;
+    background-image: url('../img/avatar.jpg?size=60');
     background-size: cover;
     background-position: center;
     border-radius: 50%;
-    border: 8px solid var(--profile-gradient-primary-color);
     margin-top: -95px;
     z-index: 2;
+    transition: left .3s;
+    margin-bottom: 25px;
 }
 
-#container #card.custom #_av {
-    border-color: var(--p-bg-color);
+#container #card #_av_decoration {
+    display: none;
+}
+
+#container #card #_av_decoration.active {
+    position: relative;
+    display: block;
+    width:100px;
+    height: 100px;
+    margin-left: -11px;
+    top: -2px;
+    z-index: 3;
+}
+
+#container #card #_av_decoration.active[decoration_type="1"] {
+    background-image: var(--av-dc-type-1);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="2"] {
+    background-image: var(--av-dc-type-2);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="3"] {
+    background-image: var(--av-dc-type-3);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="4"] {
+    background-image: var(--av-dc-type-4);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="5"] {
+    background-image: var(--av-dc-type-5);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="6"] {
+    background-image: var(--av-dc-type-6);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="7"] {
+    background-image: var(--av-dc-type-7);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="8"] {
+    background-image: var(--av-dc-type-8);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="9"] {
+    background-image: var(--av-dc-type-9);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="10"] {
+    background-image: var(--av-dc-type-10);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="11"] {
+    background-image: var(--av-dc-type-11);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="12"] {
+    background-image: var(--av-dc-type-12);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="13"] {
+    background-image: var(--av-dc-type-13);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="14"] {
+    background-image: var(--av-dc-type-14);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="15"] {
+    background-image: var(--av-dc-type-15);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="16"] {
+    background-image: var(--av-dc-type-16);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="17"] {
+    background-image: var(--av-dc-type-17);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="18"] {
+    background-image: var(--av-dc-type-18);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="19"] {
+    background-image: var(--av-dc-type-19);
+    background-size: cover;
+}
+
+#container #card #_av_decoration.active[decoration_type="20"] {
+    background-image: var(--av-dc-type-20);
+    background-size: cover;
 }
 
 #container #card #_e_bg {
+    position: relative;
     background-color: var(--v);
     margin:10px 16px 20px 16px;
     border-radius: 8px;
+    z-index: 4;
+}
+
+#container #card.profile_theme #_e_bg {
+    background-color: #00000099;
 }
 
 #container #card.light-theme #_e_bg {
     background-color: hsl(0,calc(var(--saturation-factor, 1)*0%),100%);
 }
 
-#container #card.custom #_e_bg {
-    background-color: var(--p-beta);
+#container #card.profile_theme.light-theme #_e_bg {
+    background-color: #ffffff99;
 }
 
 #container #card #_e1 {
     padding: 1rem 16px;
     display: flex;
     width: 100%;
+    transition: padding .1s;
+}
+
+#container #card.old_ver #_e1 {
+    padding: 0.8rem 8px;
 }
 
 #container #card #_e1 #username {
@@ -164,20 +347,33 @@ body {
     padding: 4px;
     margin-left: auto;
     margin-right: 15px;
-    margin-top: 12px;
+    margin-top: 4px;
     border-radius: 8px;
     max-width: 85px;
     display: flex;
     flex-wrap: wrap;
     background-color: var(--v);
+    transition: max-width .3s, margin-right .1s;
+}
+
+#container #card.profile_theme .badges {
+    background-color: #00000099;
+}
+
+#container #card.profile_theme.light-theme .badges {
+    background-color: #ffffff99;
+}
+
+#container #card.old_ver .badges {
+    margin-right: 10px;
+}
+
+#container #card .badges.left-toggle {
+    max-width: 100%;
 }
 
 #container #card.light-theme .badges {
     background-color: hsl(0,calc(var(--saturation-factor, 1)*0%),100%);
-}
-
-#container #card.custom .badges {
-    background-color: var(--p-beta);
 }
 
 #container #card .badge #badge_1 {
@@ -207,6 +403,15 @@ body {
     cursor: pointer;
 }
 
+#container #card .badge #badge_4{
+    width: 23px;
+    height: 23px;
+    background-image: url('../img/boost_badge.svg');
+    background-size: cover;
+    margin: auto;
+    cursor: pointer;
+}
+
 /* #container #card .badge #badge_4{
     width: 23px;
     height: 23px;
@@ -219,11 +424,11 @@ body {
 #container #card .badge .badge_tooltip {
     position: absolute;
     background-color: hsl(225,calc(var(--saturation-factor, 1)*7.7%),10.2%);
-    border-radius: 8px;
+    border-radius: 6px;
     padding: 5px 10px;
     opacity: 0;
     pointer-events: none;
-    transition:opacity .1s, transform .1s;
+    transition:opacity .07s, transform .08s;
     font-size: 14px;
     transform: translateX(-50%) scale(0.9);
     margin-top: -55px;
@@ -250,12 +455,12 @@ body {
     border-color: hsl(225,calc(var(--saturation-factor, 1)*7.7%),10.2%) transparent transparent transparent;
 }
 
-#container #card:not(.custom).light-theme .badge .badge_tooltip {
+#container #card:not(.profile_theme).light-theme .badge .badge_tooltip {
     color: hsl(240,calc(var(--saturation-factor, 1)*7.7%),2.5%);
     background-color: hsl(0,calc(var(--saturation-factor, 1)*0%),100%);
 }
 
-#container #card:not(.custom).light-theme .badge .badge_tooltip::after {
+#container #card:not(.profile_theme).light-theme .badge .badge_tooltip::after {
     border-color: hsl(210,calc(var(--saturation-factor, 1)*11.1%),92.9%) transparent transparent transparent;
 }
 
@@ -281,6 +486,19 @@ body {
     margin-bottom: 15px;
     text-align: center;
     color: hsl(210,calc(var(--saturation-factor, 1)*2.9%),86.7%);
+}
+
+#container #card #_e2 #ab_1 a {
+    color: hsl(197,calc(var(--saturation-factor, 1)*100%),47.8%);
+    text-decoration: none;
+}
+
+#container #card.light-theme #_e2 #ab_1 a {
+    color: hsl(212,calc(var(--saturation-factor, 1)*100%),43.9%);
+}
+
+#container #card #_e2 #ab_1 a:hover {
+    text-decoration: underline;
 }
 
 #container #card.light-theme #_e2 #ab_1 {
@@ -360,13 +578,13 @@ body {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 99;
+    z-index: 999;
     display: flex;
     opacity: 1;
     transition: opacity .5s;
 }
 
-#load.baymau {
+#load.hide {
     opacity: 0;
     pointer-events: none;
 }
@@ -378,7 +596,6 @@ body {
 .btn {
     position: fixed;
     top: 15px;
-    right: 15px;
     background-color: hsl(225,calc(var(--saturation-factor, 1)*7.7%),10.2%);
     color: #fff;
     border: 0;
@@ -388,9 +605,30 @@ body {
     cursor: pointer;
     transition: background-color .3s, opacity .3s;
     display: flex;
+    z-index: 99;
 }
 
 .btn:hover {
+    background-color: #000000;
+}
+
+.btn:disabled {
+    display: none;
+}
+
+.btn:not(.btn-2, .btn-3) {
+    right: 15px;
+}
+
+.btn.btn-2 {
+    left: 15px;
+}
+
+.btn.btn-3 {
+    left: 55px;
+}
+
+.btn.btn-3:not(.light).focused {
     background-color: #000000;
 }
 
@@ -403,11 +641,20 @@ body {
     opacity: 0.8;
 }
 
+.btn.btn-3.light.focused {
+    opacity: 0.8;
+}
+
+.btn:focus {
+    outline: none;
+}
+
 .beta_feature {
     background-color: hsl(235,calc(var(--saturation-factor, 1)*85.6%),64.7%);
-    padding: 0 5px;
-    border-radius: 3px;
-    margin-left: 5px;
+    padding: 0 6px;
+    font-weight: 500;
+    border-radius: 8px;
+    margin-left: 4px;
     font-size: 12px;
     margin-top: auto;
     margin-bottom: auto;
@@ -415,4 +662,46 @@ body {
 
 .beta_feature::after {
     content: 'BETA';
+}
+
+@media (max-height: 650px) {
+    .btn {
+        font-size: 10px;
+        top: 8px;
+    }
+
+    .btn:not(.btn-2, .btn-3) {
+        right: 8px;
+    }
+
+    .btn.btn-2 {
+        left: 10px;
+    }
+
+    .btn.btn-3 {
+        left: 48px;
+    }
+}
+
+@media (max-height:600px) {
+    #container #card #_e1 {
+        padding: 0.8rem 16px;
+    }
+
+    #container #card #_e2 #ab_1 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #container #card #_e2 {
+        padding: 0.8rem 1rem;
+    }
+
+    #container #card #_e3 {
+        padding-bottom: 10px;
+    }
+
+    #container #card #_e3.have_divider {
+        margin-top: 13px;
+    }
 }
