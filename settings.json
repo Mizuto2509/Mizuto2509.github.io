@@ -8,7 +8,7 @@
         "type": 4
     },
     "profile_theme": {
-        "enabled": false,
+        "enabled": true,
         "primary": "#25978e",
         "accent": "#294b83"
     }
